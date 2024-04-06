@@ -5,13 +5,13 @@ import getCurrentUser from "../../utils/getCurrentUser.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 
-const myGigs = () => {
+const MyGigs = () => {
   const currentUser = getCurrentUser();
 
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["mygigs"],
+    queryKey: ["myGigs"],
     queryFn: () =>
       newRequest.get(`/gigs?userId=${currentUser._id}`).then((res) => {
         return res.data;
@@ -23,7 +23,7 @@ const myGigs = () => {
       return newRequest.delete(`/gigs/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["mygigs"]);
+      queryClient.invalidateQueries(["myGigs"]);
     },
   });
 
@@ -80,4 +80,4 @@ const myGigs = () => {
   );
 };
 
-export default myGigs;
+export default MyGigs;
